@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TPFinal - Rompecabezas</string>
+    <string name="alumnos">Alumnos:
+        Facundo Topa – 43010721
+        Julián Lungarella – 44012356
+        Leonardo Sosa – 41011209</string>
 </resources>
