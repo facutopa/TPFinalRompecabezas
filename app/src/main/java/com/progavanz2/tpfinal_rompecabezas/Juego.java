@@ -3,14 +3,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import java.util.Random;
 
 public class Juego extends AppCompatActivity
 {
-    private int vacioX=3;
-    private int vacioY=3;
+    private int vacioX=2;
+    private int vacioY=2;
     private RelativeLayout grupo;
     private Button[][] botones;
     private int[] tiles;
@@ -27,8 +30,8 @@ public class Juego extends AppCompatActivity
     }
 
     private void cargarDataAVistas(){
-        vacioX = 3;
-        vacioY = 3;
+        vacioX = 2;
+        vacioY = 2;
         for (int i = 0; i < grupo.getChildCount()-1; i++)
         {
             botones[i/4][i%4].setText(String.valueOf(tiles[i]));
@@ -81,6 +84,49 @@ public class Juego extends AppCompatActivity
 
         for (int i = 0; i<grupo.getChildCount();i++){
             botones[i/4][i%4] = (Button) grupo.getChildAt(i);
+        }
+    }
+
+    public void buttonClick(View view){
+        Button button = (Button) view;
+        int x = button.getTag().toString().charAt(0)-'0';
+        int y = button.getTag().toString().charAt(1)-'0';
+
+        if((Math.abs(vacioX-x)==1 && vacioY==y)||(Math.abs(vacioY-y)==1&&vacioX==x)){
+            botones[vacioX][vacioY].setText(button.getText().toString());
+            botones[vacioX][vacioY].setBackgroundResource(android.R.drawable.btn_default);
+            button.setText("");
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            vacioX = x;
+            vacioY = y;
+            chequeaVictoria();
+        }
+    }
+
+    private void chequeaVictoria(){
+        boolean esGanador = false;
+        if (vacioX == 3 && vacioY == 3)
+        {
+            for (int i = 0; i < grupo.getChildCount(); i++)
+            {
+                if(botones[i/4][i%4].getText().toString().equals(String.valueOf(i+1))){
+                    esGanador = true;
+                }else
+                {
+                    esGanador = false;
+                    break;
+                }
+
+
+
+            }
+        }
+        if (esGanador){
+            Toast.makeText(this, "Ganaste!", Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < grupo.getChildCount(); i++)
+            {
+                botones[i/4][i%4].setClickable(false);
+            }
         }
     }
 
