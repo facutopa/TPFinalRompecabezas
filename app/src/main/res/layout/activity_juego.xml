@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/grupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/boton1"
+            style="@style/EstiloBoton"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:tag="00"
+            android:text="1"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/boton2"
+            style="@style/EstiloBoton"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/boton1"
+            android:tag="01"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/boton3"
+            style="@style/EstiloBoton"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/boton2"
+            android:tag="02"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/boton4"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton1"
+            android:layout_alignParentStart="true"
+            android:tag="10"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/boton5"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton2"
+            android:layout_toEndOf="@+id/boton4"
+            android:tag="11"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/boton6"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton3"
+            android:layout_toEndOf="@+id/boton5"
+            android:tag="12"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/boton7"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton4"
+            android:layout_alignParentStart="true"
+            android:tag="20"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/boton8"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton5"
+            android:layout_toEndOf="@+id/boton7"
+            android:tag="21"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/boton9"
+            style="@style/EstiloBoton"
+            android:layout_below="@+id/boton6"
+            android:layout_toEndOf="@+id/boton8"
+            android:background="#"
+            android:tag="22"
+            android:text="" />
+
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
