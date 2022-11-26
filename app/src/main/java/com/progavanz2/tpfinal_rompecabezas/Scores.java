@@ -23,14 +23,7 @@ public class Scores extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
         ListView lv = (ListView) findViewById(R.id.listaPunt);
-        btnVolverPrincipal= (Button) findViewById(R.id.buttonVolverPrincipal);
 
-        btnVolverPrincipal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
         ArrayList<Scores> list;
         AdminDb admin= new AdminDb(this, null);
         puntajeList = new ArrayList<>();
@@ -43,7 +36,7 @@ public class Scores extends AppCompatActivity
         } else {
             int i = 0;
             while (data.moveToNext()) {
-                punt = new Ganadores(data.getInt(0), data.getString(1), data.getInt(2));
+                punt = new Ganadores(data.getInt(0), data.getString(1), data.getInt(2), data.getString(3));
                 puntajeList.add(i, punt);
             }
             if (!puntajeList.isEmpty()) {

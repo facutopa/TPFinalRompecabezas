@@ -2,6 +2,7 @@ package com.progavanz2.tpfinal_rompecabezas;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -118,6 +119,9 @@ public class Juego extends AppCompatActivity
         textoViewTimer = findViewById(R.id.textView_Timer);
         botonReinicio = findViewById(R.id.botonReinicio);
 
+        botonRegistroGanador = (Button) findViewById(R.id.botonRegistro);
+        botonRegistroGanador.setVisibility(View.INVISIBLE);
+
         cargoTimer();
         botones = new Button[3][3];
 
@@ -189,6 +193,18 @@ public class Juego extends AppCompatActivity
             }
             timer.cancel();
             botonReinicio.setClickable(false);
+            botonRegistroGanador.setVisibility(View.VISIBLE);
+
+            botonRegistroGanador.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(Juego.this, RegistrarGanador.class);
+                    intent.putExtra("Pasos", contadorPasos);
+                    intent.putExtra("Timer", contadorTimer);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

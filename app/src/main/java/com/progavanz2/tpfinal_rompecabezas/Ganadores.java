@@ -1,20 +1,23 @@
 package com.progavanz2.tpfinal_rompecabezas;
 
+
 public class Ganadores
 {
-    private int intentos;
     private String nombre;
     private int dni;
+    private int pasos;
+    private String timer;
 
-    public Ganadores(int dni, String n, int p)
+    public Ganadores(int dni, String n, int p, String t)
     {
-        intentos=p;
-        nombre=n;
         this.dni=dni;
+        this.nombre=n;
+        this.pasos = p;
+        this.timer = t;
     }
 
-    public int getScore() {
-        return intentos;
+    public int getPasos() {
+        return pasos;
     }
 
     public String getNombre(){
@@ -24,4 +27,6 @@ public class Ganadores
     public int getDni() {
         return dni;
     }
+
+    public String getTimer(){return timer;}
 }

@@ -30,6 +30,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".RegistrarGanador"
+            android:exported="true"
+            android:parentActivityName=".Juego">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Juego" />
+        </activity>
+        <activity
+            android:name=".Scores"
+            android:exported="true"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toTopOf="@+id/listaPunt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="7dp">
 
         <TextView
             android:id="@+id/textView_Pasos"
@@ -28,39 +29,59 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayoutTitulares"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tituloDNI"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="DNI"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/tituloNombre"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Nombre"
+            android:textSize="26sp" />
+        <TextView
+            android:id="@+id/tituloPasos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Pasos"
+            android:textSize="26sp" />
+        <TextView
+            android:id="@+id/tituloTimer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Timer"
+            android:textSize="26sp" />
+
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listaPunt"
         android:layout_width="383dp"
         android:layout_height="608dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
+        android:paddingTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaPunt">
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutTitulares"/>
 
-        <Button
-            android:id="@+id/buttonVolverPrincipal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Volver" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

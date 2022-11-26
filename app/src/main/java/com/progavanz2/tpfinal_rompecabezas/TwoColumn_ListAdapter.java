@@ -15,9 +15,11 @@ public class TwoColumn_ListAdapter extends ArrayAdapter<Ganadores>  {
     private ArrayList<Ganadores> puntajes;
     private int viewResourceID;
     TextView nombre;
-    TextView score;
+    TextView pasos;
     TextView dni;
+    TextView timer;
     private int count=0;
+
     public TwoColumn_ListAdapter(Context context, int textViewResourceID, ArrayList<Ganadores> puntajes ){
         super(context, textViewResourceID, puntajes);
         this.puntajes=puntajes;
@@ -31,11 +33,19 @@ public class TwoColumn_ListAdapter extends ArrayAdapter<Ganadores>  {
         if(p!=null){
             View finalConvertView = convertView;
             nombre = (TextView) finalConvertView.findViewById(R.id.nombreList);
-            score = (TextView) finalConvertView.findViewById(R.id.scoreList);
-            dni=(TextView) finalConvertView.findViewById(R.id.dniList);
+            pasos = (TextView) finalConvertView.findViewById(R.id.pasosList);
+            dni= (TextView) finalConvertView.findViewById(R.id.dniList);
+            timer = (TextView) finalConvertView.findViewById(R.id.timerList);
             nombre.setText(p.getNombre());
-            score.setText(String.valueOf(p.getScore()));
+            pasos.setText(String.valueOf(p.getPasos()));
             dni.setText(String.valueOf(p.getDni()));
+
+            int contadorTimer = Integer.parseInt(p.getTimer());
+            int seg = contadorTimer %60;
+            int hor = contadorTimer / 3600;
+            int min = (contadorTimer - hor *3600) /60;
+
+            timer.setText(String.format("%02d:%02d:%02d",hor, min, seg));
         }
         return convertView;
     }
