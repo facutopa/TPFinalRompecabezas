@@ -27,6 +27,7 @@ public class Juego extends AppCompatActivity
     private int contadorTimer = 0;
     private Button botonReinicio;
     private boolean correElTiempo;
+    private Button botonRegistroGanador;
 
 
     @Override
