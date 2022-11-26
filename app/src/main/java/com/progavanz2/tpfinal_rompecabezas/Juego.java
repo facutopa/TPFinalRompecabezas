@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Juego extends AppCompatActivity
 {
@@ -17,6 +20,14 @@ public class Juego extends AppCompatActivity
     private RelativeLayout grupo;
     private Button[][] botones;
     private int[] tiles;
+    private TextView textoViewPasos;
+    private int contadorPasos=0;
+    private TextView textoViewTimer;
+    private Timer timer;
+    private int contadorTimer = 0;
+    private Button botonReinicio;
+    private boolean correElTiempo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +45,15 @@ public class Juego extends AppCompatActivity
         vacioY = 2;
         for (int i = 0; i < grupo.getChildCount()-1; i++)
         {
-            botones[i/4][i%4].setText(String.valueOf(tiles[i]));
-            botones[i/4][i%4].setBackgroundResource(android.R.drawable.btn_default);
+            botones[i/3][i%3].setText(String.valueOf(tiles[i]));
+            botones[i/3][i%3].setBackgroundResource(android.R.drawable.btn_default);
         }
         botones[vacioX][vacioY].setText("");
         botones[vacioX][vacioY].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
     }
 
     private void generaNumeros(){
-        int n=15;
+        int n=8;
         Random random = new Random();
         while(n>1){
             int randomNum = random.nextInt(n--);
@@ -56,7 +67,7 @@ public class Juego extends AppCompatActivity
 
     private boolean esSolucionable(){
         int cuentoInversiones = 0;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < i; j++)
             {
                 if(tiles[j]>tiles[i])
@@ -68,7 +79,7 @@ public class Juego extends AppCompatActivity
     }
 
     private void cargarNumeros(){
-        tiles = new int[16];
+        tiles = new int[9];
         for (int i = 0; i < grupo.getChildCount()-1; i++)
         {
             tiles[i] = i+1;
@@ -77,17 +88,67 @@ public class Juego extends AppCompatActivity
         }
 
     }
+    private void cargoTimer(){
+        correElTiempo = true;
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            {
+                contadorTimer++;
+                setTime(contadorTimer);
+
+            }
+        }, 1000, 1000);
+    }
+
+    private void setTime(int contadorTimer)
+    {
+        int seg = contadorTimer %60;
+        int hor = contadorTimer / 3600;
+        int min = (contadorTimer - hor *3600) /60;
+
+        textoViewTimer.setText(String.format("Tiempo: %02d:%02d:%02d",hor, min, seg));
+    }
 
     private void cargarVista(){
         grupo = findViewById(R.id.grupo);
-        botones = new Button[4][4];
+        textoViewPasos = findViewById(R.id.textView_Pasos);
+        textoViewTimer = findViewById(R.id.textView_Timer);
+        botonReinicio = findViewById(R.id.botonReinicio);
+
+        cargoTimer();
+        botones = new Button[3][3];
 
         for (int i = 0; i<grupo.getChildCount();i++){
-            botones[i/4][i%4] = (Button) grupo.getChildAt(i);
+            botones[i/3][i%3] = (Button) grupo.getChildAt(i);
         }
+
+        botonReinicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (correElTiempo)
+                {
+                    timer.cancel();
+                    botonReinicio.setText("Reanudar");
+                    correElTiempo = false;
+                    for (int i = 0; i < grupo.getChildCount(); i++) {
+                        botones[i / 3][i % 3].setClickable(false);
+                    }
+                }else
+                    {
+                        cargoTimer();
+                        botonReinicio.setText("Parar tiempo");
+                        for (int i = 0; i < grupo.getChildCount(); i++) {
+                            botones[i / 3][i % 3].setClickable(true);
+                        }
+
+                    }
+            }
+        });
     }
 
-    public void buttonClick(View view){
+    public void clickBoton(View view){
         Button button = (Button) view;
         int x = button.getTag().toString().charAt(0)-'0';
         int y = button.getTag().toString().charAt(1)-'0';
@@ -96,37 +157,37 @@ public class Juego extends AppCompatActivity
             botones[vacioX][vacioY].setText(button.getText().toString());
             botones[vacioX][vacioY].setBackgroundResource(android.R.drawable.btn_default);
             button.setText("");
-            button.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
             vacioX = x;
             vacioY = y;
+            contadorPasos++;
+            textoViewPasos.setText("Pasos: "+contadorPasos);
             chequeaVictoria();
         }
     }
 
     private void chequeaVictoria(){
         boolean esGanador = false;
-        if (vacioX == 3 && vacioY == 3)
+        if (vacioX == 2 && vacioY == 2)
         {
-            for (int i = 0; i < grupo.getChildCount(); i++)
+            for (int i = 0; i < grupo.getChildCount()-1; i++)
             {
-                if(botones[i/4][i%4].getText().toString().equals(String.valueOf(i+1))){
+                if(botones[i/3][i%3].getText().toString().equals(String.valueOf(i+1))){
                     esGanador = true;
                 }else
                 {
                     esGanador = false;
                     break;
                 }
-
-
-
             }
         }
         if (esGanador){
-            Toast.makeText(this, "Ganaste!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Juego.this, "Ganaste!\nPasos: "+contadorPasos, Toast.LENGTH_LONG).show();
             for (int i = 0; i < grupo.getChildCount(); i++)
             {
-                botones[i/4][i%4].setClickable(false);
+                botones[i/3][i%3].setClickable(false);
             }
+            timer.cancel();
+            botonReinicio.setClickable(false);
         }
     }
 
