@@ -51,7 +51,7 @@ public class RegistrarGanador extends AppCompatActivity {
         int hor = timer / 3600;
         int min = (timer - hor *3600) /60;
 
-        txtViewTimer.setText(String.format("Tiempo: %02d:%02d:%02d",hor, min, seg));
+        txtViewTimer.setText(String.format("%02d:%02d:%02d",hor, min, seg));
 
         CharSequence textOk = "Datos del usuario registrados correctamente";
         CharSequence textNok = "Datos del usuario no se pudieron registrar";

@@ -29,12 +29,14 @@ public class Juego extends AppCompatActivity
     private Button botonReinicio;
     private boolean correElTiempo;
     private Button botonRegistroGanador;
-
+    private int niveles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
+
+        niveles = getIntent().getIntExtra("Nivel",niveles);
 
         cargarVista();
         cargarNumeros();
@@ -85,8 +87,6 @@ public class Juego extends AppCompatActivity
         for (int i = 0; i < grupo.getChildCount()-1; i++)
         {
             tiles[i] = i+1;
-
-            
         }
 
     }
@@ -104,11 +104,11 @@ public class Juego extends AppCompatActivity
         }, 1000, 1000);
     }
 
-    private void setTime(int contadorTimer)
+    private void setTime(int contTimer)
     {
-        int seg = contadorTimer %60;
-        int hor = contadorTimer / 3600;
-        int min = (contadorTimer - hor *3600) /60;
+        int seg = contTimer %60;
+        int hor = contTimer / 3600;
+        int min = (contTimer - hor *3600) /60;
 
         textoViewTimer.setText(String.format("Tiempo: %02d:%02d:%02d",hor, min, seg));
     }
@@ -158,16 +158,69 @@ public class Juego extends AppCompatActivity
         int x = button.getTag().toString().charAt(0)-'0';
         int y = button.getTag().toString().charAt(1)-'0';
 
-        if((Math.abs(vacioX-x)==1 && vacioY==y)||(Math.abs(vacioY-y)==1&&vacioX==x)){
-            botones[vacioX][vacioY].setText(button.getText().toString());
-            botones[vacioX][vacioY].setBackgroundResource(android.R.drawable.btn_default);
-            button.setText("");
-            vacioX = x;
-            vacioY = y;
-            contadorPasos++;
-            textoViewPasos.setText("Pasos: "+contadorPasos);
-            chequeaVictoria();
+        int hor = contadorTimer / 3600;
+        int min = (contadorTimer - hor *3600) /60;
+
+
+        if(niveles == 1 && min>=5)
+        {
+            timer.cancel();
+            botonReinicio.setClickable(false);
+            Toast.makeText(Juego.this, "Perdiste! Superaste el tiempo de la dificultad Media.", Toast.LENGTH_LONG).show();
+            for (int i = 0; i < grupo.getChildCount(); i++)
+            {
+                botones[i/3][i%3].setClickable(false);
+            }
+
         }
+        else
+        {
+            if(niveles == 2 && min>=3)
+            {
+                timer.cancel();
+                botonReinicio.setClickable(false);
+                Toast.makeText(Juego.this, "Perdiste! Superaste el tiempo de la dificultad Dificil", Toast.LENGTH_LONG).show();
+                for (int i = 0; i < grupo.getChildCount(); i++)
+                {
+                    botones[i/3][i%3].setClickable(false);
+                }
+
+            }
+            else
+            {
+                if(niveles == 3 && min>=1)
+                {
+                    timer.cancel();
+                    botonReinicio.setClickable(false);
+                    Toast.makeText(Juego.this, "Perdiste! Superaste el tiempo de la dificultad Super Dificil", Toast.LENGTH_LONG).show();
+                    for (int i = 0; i < grupo.getChildCount(); i++)
+                    {
+                        botones[i/3][i%3].setClickable(false);
+                    }
+
+                }
+                else
+                {
+                    if((Math.abs(vacioX-x)==1 && vacioY==y)||(Math.abs(vacioY-y)==1&&vacioX==x)){
+                        botones[vacioX][vacioY].setText(button.getText().toString());
+                        botones[vacioX][vacioY].setBackgroundResource(android.R.drawable.btn_default);
+                        button.setText("");
+                        vacioX = x;
+                        vacioY = y;
+                        contadorPasos++;
+                        textoViewPasos.setText("Pasos: "+contadorPasos);
+                        chequeaVictoria();
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 
     private void chequeaVictoria(){
