@@ -93,7 +93,7 @@ public class Juego extends AppCompatActivity
 
     }
 
-    private void generaNumeros(){ //Carga de manera aleatoria con la clase Random el orden inicial de los numeros en el rompecabezas
+    private void generaNumeros(){ //Carga de manera aleatoria con la clase Random el orden inicial de los numeros en el array de tiles
         int n=8;
         Random random = new Random();
         while(n>1){
@@ -109,6 +109,9 @@ public class Juego extends AppCompatActivity
     private void cargarDataAVistas(){
         vacioX = 2;
         vacioY = 2;
+        //Ciclo que llena los botones con los datos generados previamente en los metodos (cargaNumero y generarNumeros)
+        //En el array de tiles se guardan los numeros generados aleatoriamente
+        //Con dicho array completo los botones.
         for (int i = 0; i < grupo.getChildCount()-1; i++)
         {
             botones[i/3][i%3].setText(String.valueOf(tiles[i]));
@@ -121,7 +124,7 @@ public class Juego extends AppCompatActivity
 
 
     private boolean esSolucionable(){
-        //la teoria indica que "No es posible resolver una instancia de 8 rompecabezas si el número de inversiones es impar en el estado de entrada."
+        //la teoria indica que "No es posible resolver una instancia de 8 tiles si el número de inversiones es impar en el estado de entrada."
         //que es una inversion? Un par de fichas forman una inversión si los valores de las fichas están en orden inverso al de su aparición en el estado objetivo.
         //lo que hacemos en la lógica es verificar el orden y en base a eso definimos si suma una inversion o no entre 2 botones.
         int cuentoInversiones = 0;
@@ -230,8 +233,9 @@ public class Juego extends AppCompatActivity
         if (vacioX == 2 && vacioY == 2)
         {
             for (int i = 0; i < grupo.getChildCount()-1; i++)
-            {
-                if(botones[i/3][i%3].getText().toString().equals(String.valueOf(i+1))){
+            { //recorre los botones y compara la matriz de botones con i+1 (inicia en 1)
+                if(botones[i/3][i%3].getText().toString().equals(String.valueOf(i+1)))
+                {
                     esGanador = true;
                 }else
                 {
