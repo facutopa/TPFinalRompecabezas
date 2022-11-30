@@ -53,9 +53,6 @@ public class RegistrarGanador extends AppCompatActivity {
 
         txtViewTimer.setText(String.format("%02d:%02d:%02d",hor, min, seg));
 
-        CharSequence textOk = "Datos del usuario registrados correctamente";
-        CharSequence textNok = "Datos del usuario no se pudieron registrar";
-
         buttonRegistrar = (Button) findViewById(R.id.buttonRegistrar);
         buttonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override

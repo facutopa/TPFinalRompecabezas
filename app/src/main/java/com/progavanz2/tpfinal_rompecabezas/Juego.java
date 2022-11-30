@@ -56,7 +56,7 @@ public class Juego extends AppCompatActivity
         botones[vacioX][vacioY].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
     }
 
-    private void generaNumeros(){
+    private void generaNumeros(){ //Carga de manera aleatoria con la clase Random el orden inicial de los numeros en el rompecabezas
         int n=8;
         Random random = new Random();
         while(n>1){
@@ -90,7 +90,7 @@ public class Juego extends AppCompatActivity
         }
 
     }
-    private void cargoTimer(){
+    private void cargoTimer(){ //Cargo el Timer para iniciar el conteo
         correElTiempo = true;
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -104,7 +104,7 @@ public class Juego extends AppCompatActivity
         }, 1000, 1000);
     }
 
-    private void setTime(int contTimer)
+    private void setTime(int contTimer) //Seteo el timer para mostrarlo de manera amigable en un formato HH:MM:SS
     {
         int seg = contTimer %60;
         int hor = contTimer / 3600;
@@ -214,13 +214,6 @@ public class Juego extends AppCompatActivity
                 }
             }
         }
-
-
-
-
-
-
-
     }
 
     private void chequeaVictoria(){
